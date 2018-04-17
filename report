@@ -1,11 +1,57 @@
+P1 Design:
+For this program, we have a loop to iterate through all of the groups. For each group, we also itrate through all of the members,
+and for each member we iterate through all the other members. This creates 3 nested loops. Assuming the amount of groups
+is G, and the amount of members in each group is K, and the amount of other members is B, the timing complexity of this 
+program will be O(G*K*B). When the programs finds 2 members that are connected through a group it cretes a member conneciton 
+and stores it in an unordered map.
+
 P2 Performance:
 Test 1: .0128 seconds
 Test 2: .0108 seconds
 Test 3: .0117 seconds
-Test Average: 
+Test Average: .0117 seconds
 
 P3 Performance:
 Test 1: .00979 seconds
 Test 2: .00912 seconds
 Test 3: .00914 seconds 
+Test Average: .00935 seconds
 
+Breadth first search has an average of .0117 seconds, this if farily quick; howver, iterative deepening depth first 
+search has an average of .00935 second, making IDDFS about 25% faster than BFS. 
+
+Memory Consumption:
+P2 Without Pathfinding
+Test 1: 126760 kBytes
+Test 2: 126732 kBytes
+Test 3: 126724 kBytes
+Test Average: 126738 kBytes
+
+P2 With Pathfinding
+Test 1: 126836 kBytes
+Test 2: 126824 kBytes
+Test 3: 126820 kBytes
+Test Average: 126826 kBytes
+
+Memory consumption of BFS: 88 kBytes
+
+
+
+P3 Without Pathfinding
+Test 1: 126692 kBytes
+Test 2: 126696 kBytes
+Test 3: 126728 kBytes
+Test Average: 126705 kBytes
+
+P3 With Pathfinding
+Test 1: 126764 kBytes
+Test 2: 126764 kBytes
+Test 3: 126764 kBytes
+Test Average: 126764 kBytes
+
+Memory consumption of IDDFS: 59 kBytes
+
+After running the memory consumption tests, I have determined that the average memory consumption of BFS is aout
+88 kBytes. I have determined the average memory consumption of IDDFS is about 59 kBytes. According to these vlues,
+IDDFS uses less memory than BFS does. It is also faster at finding the path from a source to a destinaiton. For this
+particular set of data, IDDFS is a better path finding algorithm than BFS. 

@@ -28,7 +28,7 @@ class Database{
   Database();
   ~Database();
   void LoadData(const std::string &data_folder_path, 
-                int event_limit, int member_limit, int group_limit);
+  int event_limit, int member_limit, int group_limit);
   void BuildMemberGraph();
   void RandomizeGraph(int num_connections);
 
