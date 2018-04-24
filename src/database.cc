@@ -195,11 +195,63 @@ void Database::LoadData(const std::string &data_folder_path,
 
 
 void Database::BuildMemberGraph() {
-  // Fill in your code here
+  for (Group *g : groups){
+    for (Member *m : g->members){
+      for (Member *m2 : g->members){
+        if(m == m2){
+          continue;
+        }
+        if (m->connecting_members.find(m2->member_id) != m->connecting_members.end()){
+          continue;
+        }
+        MemberConnection memcon;
+        memcon.group = g;
+        memcon.dst = m2;
+        m->connecting_members [m2->member_id] = memcon;
+      }
+    }
+  }
+
 }
 
 double Database::BestGroupsToJoin(Member *root) {
-  // Fill in your code here
+  double totalweight = 0;
+  root->key = 0;
+  std::vector<Member*>q;
+  BuildMemberGraph();
+  for (Member *m : members){
+    if (m->member_id == root->member_id){
+    }
+    else{
+      m->key = 9999999;
+    }
+    m->color=COLOR_WHITE;
+    m->parent = NULL;
+    q.push_back(m);
+  }
+  while(!q.empty()){
+    Member* min = q.front();
+    int min_index = 0;
+    for(uint64_t n = 0; n < q.size(); n++){
+      if(q[n]->key < min->key){
+        min = q[n];
+        min_index = n;
+      }
+    }
+    q.erase(q.begin()+min_index);
+    min->color=COLOR_BLACK;
+    for(auto memcon : min->connecting_members){
+      auto mc = memcon.second;
+      auto v = mc.dst;
+      
+      if (v->color == COLOR_WHITE && mc.GetWeight() < v->key){
+        v->key = mc.GetWeight();
+        v->parent = min;
+        totalweight = totalweight + v->key;
+      }
+    }
+  }
+  return totalweight;
+}
 }
 
-}
